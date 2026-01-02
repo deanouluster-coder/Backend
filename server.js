@@ -1,25 +1,21 @@
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const dotenv = require("dotenv");
-const playRoutes = require("./routes/play");
-
-dotenv.config();
+import express from "express";
+import cors from "cors";
+import leaderboardRoutes from "./routes/leaderboard.js";
 
 const app = express();
-const PORT = process.env.PORT || 4000;
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
-// Routes
-app.use("/api/play", playRoutes);
-
-// Health check
+// HEALTH CHECK
 app.get("/", (req, res) => {
   res.send("Million Zero Backend is running!");
 });
 
+// API ROUTES
+app.use("/api/leaderboard", leaderboardRoutes);
+
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
